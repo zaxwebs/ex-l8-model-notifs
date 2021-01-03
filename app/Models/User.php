@@ -41,17 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function modelNotifications() {
-        return $this->notifications()->get()->each(function($notification) {
-
-            if(Arr::exists($notification->data, 'models')) {
-                foreach($notification->data['models'] as $key => $id) {
-                    $model = "\App\Models\\$key";
-                    $models[$key] = $model::find((int)$id); // find() and findOrFail() need an integer to return one element.
-                }
-                $notification->models = $models;
-            }
-        });
-    }
 }

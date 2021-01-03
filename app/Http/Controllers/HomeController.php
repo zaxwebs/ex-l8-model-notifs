@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $notifications = Auth::user()->modelNotifications();
+        $user = Auth::user();
+        $notifications = $user->notifications->addModels();
         return view('home', compact('notifications'));
     }
 }
